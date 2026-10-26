@@ -4,28 +4,36 @@
 
 @startuml
 class Book {
-  - isbn : String
-  - author : String
-  - title : String
-  - isAvailable : boolean
-  + getIsbn() : String
-  + getAuthor() : String
-  + getTitle() : String
-  + isAvailable() : boolean
-  + markIssued() : void
-  + markReturned() : void
+  - __isbn : String
+  - __title : String
+  - __author : String
+  - __is_available : boolean
+  + get_isbn() : String
+  + get_title() : String
+  + get_author() : String
+  + get_is_available() : boolean
+  + issue() : void
+  + return_book() : void
+}
+
+class Reader {
+  - id : String
+  - name : String
+  + borrow_book(isbn : String) : void
+  + return_book(isbn : String) : void
 }
 
 class Library {
-  - books : List
-  + addBook(book : Book) : void
-  + issueBook(isbn : String) : void
-  + returnBook(isbn : String) : void
-  + getAllBooks() : List
-  + getAvailableBooks() : List
-  + getIssuedBooks() : List
-  - findBook(isbn : String) : Book
+  - __books : Dict
+  + add_book(book : Book) : void
+  + checkout_book(isbn : String) : void
+  + return_book(isbn : String) : void
+  + list_all_books() : List
+  + list_available_books() : List
 }
+
+Library "1" *-- "*" Book : содержит
+Library "1" o-- "*" Reader : обслуживает
 @enduml
 
 ## 2. Ответы на вопросы
